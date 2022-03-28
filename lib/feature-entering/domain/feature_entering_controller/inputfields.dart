@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_getx_example/generated/l10n.dart';
 
 import '../message_exception.dart';
 
@@ -32,10 +33,16 @@ class NumField extends ValidationField {
 
   @override
   isValid(BuildContext context) {
-    if (text.isEmpty) throw MessageException("isEmpty");
     int? intText = int.tryParse(text);
-    if (intText == null) throw MessageException("Parse error");
-    if (intText > maxNum) throw MessageException("Validation error");
+    if (text.isEmpty) {
+      throw MessageException(S.of(context).empty_error);
+    }
+    if (intText == null) {
+      throw MessageException(S.of(context).parse_error);
+    }
+    if (intText > maxNum) {
+      throw MessageException(S.of(context).validation_error);
+    }
     return true;
   }
 }

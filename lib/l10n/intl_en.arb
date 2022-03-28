@@ -1,2 +1,9 @@
 {
+  "top_riched_title" : "Top riched title",
+  "top_riched_text" : "Top riched text",
+  "error_title" : "Error",
+  "save" : "Save",
+  "empty_error" : "isEmpty",
+  "parse_error" : "Parse error",
+  "validation_error" : "Validation error"
 }

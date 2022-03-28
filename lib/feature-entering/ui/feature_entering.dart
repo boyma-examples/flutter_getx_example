@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../feature-list-core/domain/feature_list_controller/feature_list_controller.dart';
+import '../../generated/l10n.dart';
 import '../domain/feature_entering_args.dart';
 import '../domain/feature_entering_controller/feature_entering_controller.dart';
 import '../domain/message_exception.dart';
@@ -35,8 +36,7 @@ class FeatureEntering extends StatelessWidget {
             TextButton(
               onPressed: () {
                 try {
-                  if (featureEnteringController.numField.value
-                      .isValid(context)) {
+                  if (featureEnteringController.validFields(context)) {
                     int index = int.parse(
                       featureEnteringController.numField.value.text,
                     );
@@ -44,10 +44,10 @@ class FeatureEntering extends StatelessWidget {
                     Get.back(result: index);
                   }
                 } on MessageException catch (e) {
-                  Get.snackbar("Error", e.message);
+                  Get.snackbar(S.of(context).error_title, e.message);
                 }
               },
-              child: const Text("Save"),
+              child: Text(S.of(context).save),
             ),
           ],
         ),

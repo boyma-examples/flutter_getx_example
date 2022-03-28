@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../generated/l10n.dart';
 import 'feature_list_body.dart';
 
 class FeatureList extends StatelessWidget {
@@ -22,7 +23,7 @@ class FeatureList extends StatelessWidget {
                   maxExtended: size.height * 0.35,
                   onHideCircle: () {
                     WidgetsBinding.instance?.addPostFrameCallback((duration) {
-                      _showSnack(context, "_showSnack");
+                      _showSnack(context, S.of(context).top_riched_text);
                     });
                   }),
             ),
@@ -40,7 +41,7 @@ class FeatureList extends StatelessWidget {
     String s,
   ) {
     Get.snackbar(
-      'Snackbar',
+      S.of(context).top_riched_title,
       s,
       snackPosition: SnackPosition.BOTTOM,
     );

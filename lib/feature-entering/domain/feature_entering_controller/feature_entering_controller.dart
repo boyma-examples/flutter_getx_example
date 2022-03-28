@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../feature_entering_args.dart';
@@ -15,5 +16,10 @@ class FeatureEnteringController extends GetxController {
 
   void onNumFieldChanged(String txt) {
     numField.value = numField.value.copyWith(text: txt);
+  }
+
+  bool validFields(BuildContext context) {
+    numField.value.isValid(context);
+    return true;
   }
 }
