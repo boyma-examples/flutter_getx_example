@@ -59,6 +59,7 @@ class FeatureListController extends GetxController {
   }
 
   void onSaveNewValue(int choosedIndex) {
+    print("onSaveNewValue");
     state.value = dataState().copyWith(choosedIndex: choosedIndex);
   }
 }

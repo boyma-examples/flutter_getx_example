@@ -5,9 +5,9 @@ import '../../feature-entering/domain/feature_entering_args.dart';
 import '../../feature-entering/ui/feature_entering.dart';
 import '../../feature-list-core/domain/feature_list_controller/feature_list_controller.dart';
 import '../../feature-list-core/domain/feature_list_controller/feature_list_controller_state.dart';
+import '../../main.dart';
 
 class FeatureListBody extends StatelessWidget {
-  final Size size;
   final scrollController = ScrollController();
   final double horItemWidth = 100.0;
   final double horItemPaddingLeft = 8.0;
@@ -15,14 +15,15 @@ class FeatureListBody extends StatelessWidget {
 
   FeatureListBody({
     Key? key,
-    required this.size,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var sizes = Get.find<MediaQueryDataProvider>().mediaQueryData.size;
     return GetX<FeatureListController>(
       builder: (controller) {
         final state = controller.state.value;
+        print(state.toString());
         if (state is FeatureListControllerStateData) {
           var list = List.generate(
             state.list.length,
@@ -36,6 +37,7 @@ class FeatureListBody extends StatelessWidget {
                       index,
                       state.list.length,
                       scrollController,
+                      sizes,
                     );
                   },
                   child: Container(
@@ -81,6 +83,7 @@ class FeatureListBody extends StatelessWidget {
     int index,
     int maxCount,
     ScrollController scrollController,
+    Size sizes,
   ) async {
     int? newValue = await Get.to(
       () => FeatureEntering(
@@ -91,7 +94,12 @@ class FeatureListBody extends StatelessWidget {
       ),
     );
     if (newValue != null) {
-      _scroll(scrollController, newValue, horItemWidth + horItemPaddingLeft);
+      _scroll(
+        scrollController,
+        newValue,
+        horItemWidth + horItemPaddingLeft,
+        sizes,
+      );
     }
   }
 
@@ -99,10 +107,11 @@ class FeatureListBody extends StatelessWidget {
     ScrollController scrollController,
     int i,
     double horItemWidth,
+    Size sizes,
   ) {
     if (scrollController.hasClients == false) return;
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      var maxVisibleItems = size.width / (horItemWidth);
+      var maxVisibleItems = sizes.width / (horItemWidth);
       var aLength = maxVisibleItems * horItemWidth;
       var bLength = (maxVisibleItems.toInt() + 1) * horItemWidth;
       var offset = bLength - aLength;

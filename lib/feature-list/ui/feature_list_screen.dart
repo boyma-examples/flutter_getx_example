@@ -3,24 +3,26 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../generated/l10n.dart';
+import '../../main.dart';
 import 'feature_list_body.dart';
 
 class FeatureList extends StatelessWidget {
+
   const FeatureList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var mediaQueryData = Get.find<MediaQueryDataProvider>().mediaQueryData;
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: EdgeInsets.only(top: mediaQueryData.padding.top),
         child: CustomScrollView(
           slivers: [
             SliverPersistentHeader(
               pinned: false,
               delegate: _AppBarWithCircle(
                   minExtended: kToolbarHeight,
-                  maxExtended: size.height * 0.35,
+                  maxExtended: mediaQueryData.size.height * 0.35,
                   onHideCircle: () {
                     WidgetsBinding.instance?.addPostFrameCallback((duration) {
                       _showSnack(context, S.of(context).top_riched_text);
@@ -28,7 +30,7 @@ class FeatureList extends StatelessWidget {
                   }),
             ),
             SliverToBoxAdapter(
-              child: FeatureListBody(size: size),
+              child: FeatureListBody(),
             )
           ],
         ),

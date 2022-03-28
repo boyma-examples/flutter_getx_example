@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../feature-list-core/domain/feature_list_controller/feature_list_controller.dart';
 import '../../generated/l10n.dart';
+import '../../main.dart';
 import '../domain/feature_entering_args.dart';
 import '../domain/feature_entering_controller/feature_entering_controller.dart';
 import '../domain/message_exception.dart';
@@ -19,8 +20,9 @@ class FeatureEntering extends StatelessWidget {
   Widget build(BuildContext context) {
     final FeatureEnteringController featureEnteringController =
         Get.put(FeatureEnteringController(args));
+    var paddings = Get.find<MediaQueryDataProvider>().mediaQueryData.padding;
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      padding: EdgeInsets.only(top: paddings.top),
       child: Scaffold(
         body: Column(
           children: [
